@@ -1,0 +1,14 @@
+.buttonRow {
+  display: flex;
+}
+
+.buttonColumn {
+  display: flex;
+  flex-direction: column;
+}
+button {
+  min-width: 4em;
+}
+.equalButton {
+  min-width: 8em;
+}
