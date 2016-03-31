@@ -2,18 +2,15 @@
 //mathematical expressions
 
 function evaluate(str) {
-  try {
     str = cleanString(str);
     return evaluateHelper(str);
-  } catch (e) {
-    return "invalid";
-  }
 }
 
 function evaluateHelper(str) {
   if (str.indexOf('(') === -1) {
     return evaluateWithinBrackets(str);
   }
+
   else {
     var splitStrings = isolateBrackets(str);
     return evaluateHelper(splitStrings.startString

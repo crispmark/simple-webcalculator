@@ -12,3 +12,7 @@ button {
 .equalButton {
   min-width: 8em;
 }
+
+.errorBox {
+  background-color: pink;
+}
