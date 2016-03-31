@@ -1,3 +1,14 @@
+body {
+  margin: 0px;
+}
+#container {
+  min-height: 100vh;
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 .buttonRow {
   display: flex;
 }
@@ -7,12 +18,25 @@
   flex-direction: column;
 }
 button {
+  background-color: #009688;
+  font-size: 14px;
+  color: white;
+  font-family: sans-serif;
   min-width: 4em;
+  border: none;
+  border-radius: 2px;
+  margin: 0.15em;
+}
+button:active {
+  background-color: #FF1744;
 }
 .equalButton {
-  min-width: 8em;
+  min-width: 8.3em;
 }
-
+.box, .errorBox {
+  width: 100%;
+  text-align: right;
+}
 .errorBox {
   background-color: pink;
 }
