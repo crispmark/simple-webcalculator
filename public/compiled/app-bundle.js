@@ -19985,7 +19985,7 @@
 	  var end = endNumber(str1);
 	  var start = startNumber(str2);
 	  //if missing a value or divisor is 0 evaluation is impossible
-	  if (!start.value || !end.value) {
+	  if (start.value === undefined || end.value === undefined) {
 	    throw new Error("malformed expression");
 	  }
 	
@@ -20002,7 +20002,7 @@
 	  var end = endNumber(str1);
 	  var start = startNumber(str2);
 	  //if missing a value evaluation is impossible
-	  if (!start.value || !end.value) {
+	  if (start.value === undefined || end.value === undefined) {
 	    throw new Error("malformed expression");
 	  }
 	
