@@ -1,0 +1,219 @@
+{
+  "addTests": [
+    {
+      "expression": "5+5",
+      "result": "10"
+    },
+    {
+      "expression": "5+5+5",
+      "result": "15"
+    },
+    {
+      "expression": "+5+5",
+      "result": "10"
+    },
+    {
+      "expression": "5++5",
+      "result": "10"
+    },
+    {
+      "expression": "5+5+",
+      "result": "10"
+    },
+    {
+      "expression": "5.5+4.93",
+      "result": "10.43"
+    }
+  ],
+  "subtractTests": [
+    {
+      "expression": "-5",
+      "result": "-5"
+    },
+    {
+      "expression": "5-5",
+      "result": "0"
+    },
+    {
+      "expression": "5-5+4",
+      "result": "4"
+    },
+    {
+      "expression": "5-5-+4",
+      "result": "-4"
+    },
+    {
+      "expression": "5-5+-4",
+      "result": "-4"
+    },
+    {
+      "expression": "-5-5",
+      "result": "-10"
+    },
+    {
+      "expression": "-5--5",
+      "result": "0"
+    },
+    {
+      "expression": "-5---5",
+      "result": "-10"
+    },
+    {
+      "expression": "-5-5-",
+      "result": "-10"
+    },
+    {
+      "expression": "-5.4-5.9",
+      "result": "-11.3"
+    }
+  ],
+
+  "percentTests": [
+    {
+      "expression": "100%",
+      "result": "1"
+    },
+    {
+      "expression": "-%",
+      "result": "invalid"
+    },
+    {
+      "expression": "-10%",
+      "result": "-0.1"
+    },
+    {
+      "expression": "10%+4",
+      "result": "4.1"
+    },
+    {
+      "expression": "2-10%",
+      "result": "1.9"
+    },
+    {
+      "expression": "2-10%+4",
+      "result": "5.9"
+    }
+  ],
+  "multTests": [
+    {
+      "expression": "*3",
+      "result": "invalid"
+    },
+    {
+      "expression": "3*",
+      "result": "invalid"
+    },
+    {
+      "expression": "3*3",
+      "result": "9"
+    },
+    {
+      "expression": "1+3*3",
+      "result": "10"
+    },
+    {
+      "expression": "1-3*3",
+      "result": "-8"
+    },
+    {
+      "expression": "0.5*3",
+      "result": "1.5"
+    }
+  ],
+  "divTests": [
+    {
+      "expression": "/3",
+      "result": "invalid"
+    },
+    {
+      "expression": "3/",
+      "result": "invalid"
+    },
+    {
+      "expression": "3/0",
+      "result": "invalid"
+    },
+    {
+      "expression": "100/10",
+      "result": "10"
+    },
+    {
+      "expression": "100/-10",
+      "result": "-10"
+    },
+    {
+      "expression": "100/-10+10*2",
+      "result": "10"
+    }
+  ],
+  "expTests": [
+    {
+      "expression": "^4",
+      "result": "invalid"
+    },
+    {
+      "expression": "4^",
+      "result": "invalid"
+    },
+    {
+      "expression": "4^0",
+      "result": "1"
+    },
+    {
+      "expression": "4^-1",
+      "result": "0.25"
+    },
+    {
+      "expression": "-4^2",
+      "result": "16"
+    },
+    {
+      "expression": "2*-4^2",
+      "result": "32"
+    }
+  ],
+  "rootTests": [
+    {
+      "expression": "√4",
+      "result": "2"
+    },
+    {
+      "expression": "2√",
+      "result": "invalid"
+    },
+    {
+      "expression": "2√4",
+      "result": "4"
+    },
+    {
+      "expression": "1-√4",
+      "result": "-1"
+    },
+    {
+      "expression": "√4/-2",
+      "result": "-1"
+    }
+  ],
+  "bracketTests": [
+    {
+      "expression": "(√4)",
+      "result": "2"
+    },
+    {
+      "expression": "2(2)",
+      "result": "4"
+    },
+    {
+      "expression": "2*(2+1)",
+      "result": "6"
+    },
+    {
+      "expression": "7((1-4)/(5+2))",
+      "result": "-3"
+    },
+    {
+      "expression": "((7((1-4)/(5+2)))",
+      "result": "invalid"
+    }
+  ]
+}
