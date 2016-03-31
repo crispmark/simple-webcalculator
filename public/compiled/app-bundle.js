@@ -20059,26 +20059,29 @@
 	
 	//returns the number at the end of a string if one exists and the remaining string
 	function endNumber(str) {
-	  var result = str.match(/-?\d+(\.\d+)?$/);
+	  var result = str.match(/-?\d+(\.\d*)?$/);
 	  if (result) {
 	    var nString = result[0];
 	    return {
 	      value: parseFloat(nString),
 	      remainder: str.substring(0, str.length - nString.length)
 	    };
-	  } else return {
-	    remainder: str
-	  };
+	  } else {
+	    return {
+	      remainder: str
+	    };
+	  }
 	}
 	
 	//returns the number at the start of a string if one exists and the remaining string
 	function startNumber(str) {
-	  var result = str.match(/^-?\d+(\.\d+)?/);
+	  var result = str.match(/^-?\d+(\.\d*)?/);
 	  if (result) {
 	    var nString = result[0];
+	    var remainder = str.substring(nString.length);
 	    return {
 	      value: parseFloat(nString),
-	      remainder: str.substring(nString.length)
+	      remainder: remainder
 	    };
 	  } else return {
 	    remainder: str
