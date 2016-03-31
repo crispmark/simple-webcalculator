@@ -19,7 +19,12 @@ tests.rootTests.forEach(runTest);
 tests.bracketTests.forEach(runTest);
 
 function runTest(test) {
-  var newExp = Evaluator.evaluate(test.expression);
+  var newExp;
+  try {
+    newExp = Evaluator.evaluate(test.expression);
+  } catch (e) {
+    newExp = "invalid"
+  }
   var result = (newExp === test.result);
   if (result) {
     console.log(test.expression + " was successful.");

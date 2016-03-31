@@ -21,7 +21,6 @@ var Calculator = React.createClass({
 //appends a string to calcExpression
   appendString: function(str, event) {
     this.setState({calcExpression: this.state.calcExpression + str});
-    console.log(event.target);
   },
 
 //deletes the last character in calcExpression

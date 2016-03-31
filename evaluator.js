@@ -26,10 +26,10 @@ function evaluateHelper(str) {
     if (leftBracketCount !== rightBracketCount) {
       throw new Error("malformed expression");
     }
-    // var validString = /[0-9|sqrt|^|/|*|%|-|+|(|)]+/.test(str);
-    // if (!validString) {
-    //   throw new Error("malformed expression");
-    // }
+    var validString = /[0-9|sqrt|^|/|*|%|-|+|(|)]+/.test(str);
+    if (!validString) {
+      throw new Error("malformed expression");
+    }
     return condenseAddSubtract(str);
   }
 

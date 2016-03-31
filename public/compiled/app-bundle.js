@@ -87,7 +87,6 @@
 	  //appends a string to calcExpression
 	  appendString: function appendString(str, event) {
 	    this.setState({ calcExpression: this.state.calcExpression + str });
-	    console.log(event.target);
 	  },
 	
 	  //deletes the last character in calcExpression
@@ -19828,7 +19827,7 @@
 /* 160 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	//The functions in this file are used to evaluate strings containing
 	//mathematical expressions
@@ -19854,10 +19853,10 @@
 	  if (leftBracketCount !== rightBracketCount) {
 	    throw new Error("malformed expression");
 	  }
-	  // var validString = /[0-9|sqrt|^|/|*|%|-|+|(|)]+/.test(str);
-	  // if (!validString) {
-	  //   throw new Error("malformed expression");
-	  // }
+	  var validString = /[0-9|sqrt|^|/|*|%|-|+|(|)]+/.test(str);
+	  if (!validString) {
+	    throw new Error("malformed expression");
+	  }
 	  return condenseAddSubtract(str);
 	}
 	
