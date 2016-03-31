@@ -1,9 +1,10 @@
 # simple-webcalculator
+A simple calculator webpage.
 
-Time to write GUI calculator webpage + input methods: 1h
+To install:
+1. Clone the git repository
+2. Enter the directory and run npm install
 
-Time to write calculator tests: 15min
-
-Time to write evaluator functions:
-
-Time to write css:
+To run:
+1. Enter the main directory and run node server.js
+2. Open http://localhost:3000 in browser
