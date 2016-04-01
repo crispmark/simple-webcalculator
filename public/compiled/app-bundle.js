@@ -75,7 +75,9 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      calcExpression: "",
-	      error: false
+	      error: false,
+	      shiftleft: false,
+	      shiftright: false
 	    };
 	  },
 	
@@ -103,7 +105,9 @@
 	
 	  //evaluates calcExpression and replaces it with the calculated value
 	  evaluate: function evaluate(event) {
-	    event.preventDefault();
+	    if (event) {
+	      event.preventDefault();
+	    }
 	    var expression = this.state.calcExpression;
 	    try {
 	      var result = _evaluator2.default.evaluate(expression);
@@ -118,6 +122,130 @@
 	    if (event.keyCode === 13) {
 	      this.evaluate(event);
 	    }
+	  },
+	
+	  //determines if the shift key is pressed
+	  shiftOn: function shiftOn() {
+	    return this.state.shiftleft || this.state.shiftright;
+	  },
+	
+	  handleKeyDown: function handleKeyDown(event) {
+	    console.log(event.code);
+	    event.preventDefault();
+	    switch (event.code) {
+	      case 'ShiftLeft':
+	        this.setState({ shiftleft: true });
+	        break;
+	      case 'ShiftRight':
+	        this.setState({ shiftright: true });
+	        break;
+	      case 'Digit0':
+	        if (!this.shiftOn()) {
+	          this.appendString('0');
+	        } else {
+	          this.appendString(')');
+	        }
+	        break;
+	      case 'Digit1':
+	        if (!this.shiftOn()) {
+	          this.appendString('1');
+	        }
+	        break;
+	      case 'Digit2':
+	        if (!this.shiftOn()) {
+	          this.appendString('2');
+	        }
+	        break;
+	      case 'Digit3':
+	        if (!this.shiftOn()) {
+	          this.appendString('3');
+	        }
+	        break;
+	      case 'Digit4':
+	        if (!this.shiftOn()) {
+	          this.appendString('4');
+	        }
+	        break;
+	      case 'Digit5':
+	        if (!this.shiftOn()) {
+	          this.appendString('5');
+	        } else {
+	          this.appendString('%');
+	        }
+	        break;
+	      case 'Digit6':
+	        if (!this.shiftOn()) {
+	          this.appendString('6');
+	        } else {
+	          this.appendString('^');
+	        }
+	        break;
+	      case 'Digit7':
+	        if (!this.shiftOn()) {
+	          this.appendString('7');
+	        }
+	        break;
+	      case 'Digit8':
+	        if (!this.shiftOn()) {
+	          this.appendString('8');
+	        } else {
+	          this.appendString('*');
+	        }
+	        break;
+	      case 'Digit9':
+	        if (!this.shiftOn()) {
+	          this.appendString('9');
+	        } else {
+	          this.appendString('(');
+	        }
+	        break;
+	      case 'Slash':
+	        if (!this.shiftOn()) {
+	          this.appendString('/');
+	        }
+	        break;
+	      case 'Minus':
+	        if (!this.shiftOn()) {
+	          this.appendString('-');
+	        }
+	        break;
+	      case 'Equal':
+	        if (!this.shiftOn()) {
+	          this.evaluate();
+	        } else {
+	          this.appendString('+');
+	        }
+	        break;
+	      case 'Backspace':
+	        this.deleteChar();
+	        break;
+	      case 'Enter':
+	        this.evaluate();
+	        break;
+	    }
+	  },
+	
+	  handleKeyUp: function handleKeyUp(event) {
+	    switch (event.code) {
+	      case 'ShiftLeft':
+	        this.setState({ shiftleft: false });
+	        break;
+	      case 'ShiftRight':
+	        this.setState({ shiftright: false });
+	        break;
+	    }
+	  },
+	
+	  //add key listeners on mount
+	  componentWillMount: function componentWillMount() {
+	    document.addEventListener("keydown", this.handleKeyDown, false);
+	    document.addEventListener("keyup", this.handleKeyUp, false);
+	  },
+	
+	  //remove key listeners on unmount
+	  componentWillUnmount: function componentWillUnmount() {
+	    document.removeEventListener("keydown", this.handleKeyDown, false);
+	    document.removeEventListener("keyup", this.handleKeyUp, false);
 	  },
 	
 	  render: function render() {
@@ -19853,7 +19981,7 @@
 	  if (leftBracketCount !== rightBracketCount) {
 	    throw new Error("malformed expression");
 	  }
-	  var validString = /[0-9|sqrt|^|/|*|%|-|+|(|)]+/.test(str);
+	  var validString = /^[0-9|sqrt|^|/|*|%|-|+|(|)]+$/.test(str);
 	  if (!validString) {
 	    throw new Error("malformed expression");
 	  }
