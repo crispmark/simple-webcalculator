@@ -8,13 +8,15 @@ function evaluate(str) {
   return evaluateHelper(str);
 }
 
-//given a basic mathematical expression containing no brackets, split into array
+//given a basic mathematical expression containing no brackets, split into an
+//array tree where each level is an operation, with the lowest level having the
+//highest priority in bedmas
 function createOpArrayTree(str) {
 
   var opArrayTree = [str];
   opArrayTree = opArrayTree.map(function(substr) {
     return substr.split('+').map(function(subplus) {
-      //need to handle - splits where it is not a number on either side
+      //need to handle '-' splits where it is not a number on either side
       var minusSplit = subplus.split('-');
       var mergeMinus = [];
       for (var i = 0; i < minusSplit.length; i++) {
@@ -43,39 +45,53 @@ function createOpArrayTree(str) {
   return opArrayTree;
 }
 
+//given an operation array tree carry out each operation in the tree from the
+//base up, and return the solution
 function solveOpArrayTree(opArrayTree) {
 
   var solution = opArrayTree.map(function(substr) {
-
     var addArray = substr.map(function(subplus) {
       var subArray = subplus.map(function(subminus) {
         var centArray = subminus.map(function(subcent) {
           var multArray =  subcent.map(function(submult) {
             var divArray =  submult.map(function(subdiv) {
               var expArray = subdiv.map(function(subexp) {
+                //a length of 1 indicates that there is no sqrt operation
                 if (subexp.length === 1) {
+                  //if it is not an empty string, then we must parse it to get
+                  //the number
                   if (subexp[0] !== '') {
                     var n = parseFloat(subexp[0]);
                     if (!isNaN(n)) {
                       return n;
                     }
+                    //if not a number, then there the expression is not correct
                     else {
                       throw new Error("malformed expression");
                     }
                   }
+                  //if it is an empty string, then it is the remainder of a
+                  //split on an operation that takes only one argument in this
+                  //case pass back NaN
                   else {
                     return NaN;
                   }
                 }
+                //if the length is 2, there is sqrt operation and we must parse
+                //it
                 else if (subexp.length === 2) {
                   var n = parseFloat(subexp[1]);
                   if (!isNaN(n)) {
                     return Math.sqrt(n);
                   }
+                  //if it is not a number then the expression was incorrect
                   else {
                     throw new Error("malformed expression");
                   }
-                } else {
+                }
+                //it is not possible to have two sqrt side by side, as a *
+                //would be inserted
+                else {
                   throw new Error("malformed expression");
                 }
               })
@@ -96,24 +112,27 @@ function solveOpArrayTree(opArrayTree) {
             return acc;
           }, 1);
         })
+        //if length is 1 there is no operation that takes place and we pass
+        //back the value
         if (centArray.length === 1) {
           return centArray[0];
         }
+        //if length is 2 we perform the operation
         else if (centArray.length === 2) {
           if (isNaN(centArray[1])) {
             return centArray[0]*0.01;
           }
+          //if centArray[1] is not a stub, then there was an error in the
+          //expression
           else {
             throw new Error("malformed expression");
           }
         }
+        //a length greater than 2 is impossible, n%n% is an invalid expression
         else {
           throw new Error("malformed expression");
         }
       })
-      if (subArray.length >1 && isNaN(subArray[0])) {
-        subArray[0] = 0;
-      }
       //at this point there should no longer be empty array slots
       subArray.forEach(function(n) {
         if (isNaN(n)) {
@@ -133,11 +152,15 @@ function solveOpArrayTree(opArrayTree) {
   return solution[0].toString();
 };
 
+//creates and solves an operation tree
 function evaluateTree(str) {
   var opArrayTree = createOpArrayTree(str);
   return solveOpArrayTree(opArrayTree);
 }
 
+//loops through an expression, continuously extracting sub-expressions by their
+//brackets and solving them until there are no more brackets nor operations,
+//then returns a solution
 function evaluateHelper(str) {
   if (str.indexOf('(') === -1) {
     return evaluateTree(str);
@@ -151,19 +174,21 @@ function evaluateHelper(str) {
   }
 }
 
-//cleans up +/- combinations, adds multiply in front of sqrts that need it, and
-//validates expression
+//cleans up +/- combinations, adds multiply in front of sqrts that need it,
+//removes the + from an 'e+n' scientific notation expression and validates
+//expression
 function cleanString(str) {
   var leftBracketCount = (str.match(/\(/g) || []).length;
   var rightBracketCount = (str.match(/\)/g) || []).length;
   if (leftBracketCount !== rightBracketCount) {
     throw new Error("malformed expression");
   }
-  var validString = /^[0-9|.|√|^|/|*|%|\-|+|(|)]+$/.test(str);
+  var validString = /^[0-9|.|√|^|/|*|%|\-|+|(|)|e]+$/.test(str);
   if (!validString) {
     throw new Error("malformed expression");
   }
   str = replaceRoot(str);
+  str = str.replace('e+', 'e')
   return condenseAddSubtract(str);
 }
 

@@ -65,6 +65,7 @@ var Calculator = React.createClass({
 
   handleKeyDown: function(event) {
     event.preventDefault();
+    console.log(event.code);
     switch(event.code) {
       case 'ShiftLeft':
       this.setState({shiftleft: true});
@@ -147,6 +148,11 @@ var Calculator = React.createClass({
         this.evaluate();
       } else {
         this.appendString('+');
+      }
+      break;
+      case 'Period':
+      if (!this.shiftOn()) {
+        this.appendString('.');
       }
       break;
       case 'Backspace':
