@@ -10,7 +10,7 @@
     },
     {
       "expression": "+5+5",
-      "result": "10"
+      "result": "invalid"
     },
     {
       "expression": "5++5",
@@ -18,7 +18,7 @@
     },
     {
       "expression": "5+5+",
-      "result": "10"
+      "result": "invalid"
     },
     {
       "expression": "5.5+4.93",
@@ -60,7 +60,7 @@
     },
     {
       "expression": "-5-5-",
-      "result": "-10"
+      "result": "invalid"
     },
     {
       "expression": "-5.4-5.9",
@@ -131,7 +131,7 @@
     },
     {
       "expression": "3/0",
-      "result": "invalid"
+      "result": "Infinity"
     },
     {
       "expression": "100/10",
