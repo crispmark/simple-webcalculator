@@ -26,7 +26,8 @@ function evaluateHelper(str) {
     if (leftBracketCount !== rightBracketCount) {
       throw new Error("malformed expression");
     }
-    var validString = /^[0-9|sqrt|^|/|*|%|-|+|(|)]+$/.test(str);
+
+    var validString = /^[0-9|.|√|^|/|*|%|\-|+|(|)]+$/.test(str);
     if (!validString) {
       throw new Error("malformed expression");
     }
