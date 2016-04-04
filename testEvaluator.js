@@ -1,5 +1,5 @@
 var tests = require('./tests.json');
-var Evaluator = require('./evaluator.js');
+var Evaluator = require('./evaluator0.js');
 
 //evaluate addTests
 tests.addTests.forEach(runTest);
